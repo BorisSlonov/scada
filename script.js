@@ -70,6 +70,30 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  // --- Hero parallax ---
+  const hero = document.getElementById("hero");
+  if (hero) {
+    const heroBg = hero.querySelector("::before");
+    let ticking = false;
+    let lastScrollY = window.pageYOffset;
+
+    window.addEventListener(
+      "scroll",
+      () => {
+        lastScrollY = window.pageYOffset;
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            const scrolled = lastScrollY * 0.5;
+            hero.style.setProperty("--scroll", `${scrolled}px`);
+            ticking = false;
+          });
+          ticking = true;
+        }
+      },
+      { passive: true }
+    );
+  }
+
   // --- Value Swiper ---
   if (window.Swiper && document.querySelector(".value-swiper")) {
     new Swiper(".value-swiper", {
