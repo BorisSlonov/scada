@@ -803,6 +803,9 @@ select {
 
 .advantagesCard__img {
     height: 100%;
+    object-fit: cover;
+    object-position: center center;
+    border-radius: 32px;
 }
 
 .advantagesCard__img_wind {
@@ -1026,6 +1029,12 @@ select {
 
     .advantagesCard_wind {
         display: none;
+    }
+}
+
+@media(max-width:767px) {
+    .advantagesCard__img {
+        height: auto;
     }
 }
 
