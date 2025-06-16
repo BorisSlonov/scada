@@ -73,31 +73,23 @@ document.addEventListener("DOMContentLoaded", () => {
   // --- Hero parallax ---
   const hero = document.getElementById("hero");
   if (hero) {
-    window.addEventListener("scroll", () => {
-      const scrolled = window.pageYOffset;
-      hero.style.backgroundPositionY = `${scrolled * 0.5}px`;
-    });
-  }
+    let ticking = false;
+    let lastScrollY = window.pageYOffset;
 
-  // --- Smart Solutions fade-in ---
-  const solutionCards = document.querySelectorAll(".solution-card");
-  if (solutionCards.length > 0) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("fade-in");
-            observer.unobserve(entry.target);
-          }
-        });
+    window.addEventListener(
+      "scroll",
+      () => {
+        lastScrollY = window.pageYOffset;
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            hero.style.backgroundPositionY = `${lastScrollY * 0.5}px`;
+            ticking = false;
+          });
+          ticking = true;
+        }
       },
-      {
-        threshold: 0.1,
-      }
+      { passive: true }
     );
-    solutionCards.forEach((card) => {
-      observer.observe(card);
-    });
   }
 
   // --- Value Swiper ---
