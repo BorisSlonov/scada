@@ -70,28 +70,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  // --- Hero parallax ---
-  const hero = document.getElementById("hero");
-  if (hero) {
-    let ticking = false;
-    let lastScrollY = window.pageYOffset;
-
-    window.addEventListener(
-      "scroll",
-      () => {
-        lastScrollY = window.pageYOffset;
-        if (!ticking) {
-          window.requestAnimationFrame(() => {
-            hero.style.backgroundPositionY = `${lastScrollY * 0.5}px`;
-            ticking = false;
-          });
-          ticking = true;
-        }
-      },
-      { passive: true }
-    );
-  }
-
   // --- Value Swiper ---
   if (window.Swiper && document.querySelector(".value-swiper")) {
     new Swiper(".value-swiper", {
